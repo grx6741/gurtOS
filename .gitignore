@@ -1,4 +1,5 @@
 .cache
+serial.log
 build
 compile_commands.json
 isodir

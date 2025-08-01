@@ -1,6 +1,6 @@
-[ GURT ] :: Disabled Divices
-[ GURT ] :: Flush the Output Buffer
-[ GURT ] :: Set the Controller Configuration Byte
-[ GURT ] :: PS/2 Controller Test Passed
-[ GURT ] :: Controller is Dual Channelled
-[ GURT ] :: First Port Passed the test
+[ PS2 ] :: Disabled Divices
+[ PS2 ] :: Flush the Output Buffer
+[ PS2 ] :: Set the Controller Configuration Byte
+[ PS2 ] :: PS/2 Controller Test Passed
+[ PS2 ] :: Controller is Dual Channelled
+[ PS2 ] :: First Port Passed the test

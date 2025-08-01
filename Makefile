@@ -1,5 +1,7 @@
 TARGET = i686-elf
 
+.SHELLFLAGS := -e -x -c
+
 TOOLS_DIR	= tools/bin
 BUILD_DIR	= build
 SRC_DIR	   	= src
@@ -25,28 +27,28 @@ LDFLAGS = -T $(SRC_DIR)/linker.ld -ffreestanding -O2 -nostdlib
 all: $(BUILD_DIR)/$(OS_ISO)
 
 $(BUILD_DIR)/$(OS_ISO): $(SRC_DIR)/grub.cfg $(BUILD_DIR)/$(KERNEL_BIN)
-	mkdir -p $(ISO_DIR)/boot/grub
-	cp $(BUILD_DIR)/$(KERNEL_BIN) $(ISO_DIR)/boot/$(KERNEL_BIN)
-	cp $(SRC_DIR)/grub.cfg $(ISO_DIR)/boot/grub/grub.cfg
-	grub-mkrescue -o $(BUILD_DIR)/$(OS_ISO) $(ISO_DIR)
+	@mkdir -p $(ISO_DIR)/boot/grub
+	@cp $(BUILD_DIR)/$(KERNEL_BIN) $(ISO_DIR)/boot/$(KERNEL_BIN)
+	@cp $(SRC_DIR)/grub.cfg $(ISO_DIR)/boot/grub/grub.cfg
+	@grub-mkrescue -o $(BUILD_DIR)/$(OS_ISO) $(ISO_DIR)
 
 $(BUILD_DIR)/$(KERNEL_BIN): $(OBJECTS) $(SRC_DIR)/linker.ld
-	$(CC) $(LDFLAGS) -o $@ $(OBJECTS) -lgcc
+	@$(CC) $(LDFLAGS) -o $@ $(OBJECTS) -lgcc
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.s | $(BUILD_DIR)
-	$(AS) $< -o $@
+	@$(AS) $< -o $@
 
 $(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
+	@mkdir -p $(BUILD_DIR)
 
 clean:
-	rm -rf $(BUILD_DIR) $(ISO_DIR)
+	@rm -rf $(BUILD_DIR) $(ISO_DIR)
 
 run: all
-	qemu-system-i386 -cdrom $(BUILD_DIR)/$(OS_ISO) -serial file:serial.log
+	@qemu-system-i386 -cdrom $(BUILD_DIR)/$(OS_ISO) -serial file:serial.log
 
 # Tells make that these rules don't create actual files
 .PHONY: all clean run

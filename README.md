@@ -1,3 +1,11 @@
+## Dependencies
+
+On debian, i needed to install the following packages
+
+```console
+mtools xorriso grub-efi-amd64-bin grub-pc-bin qemu-system
+```
+
 ## Building
 
 Build Binutils and GCC for Cross compiling
